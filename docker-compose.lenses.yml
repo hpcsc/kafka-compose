@@ -1,0 +1,11 @@
+---
+version: '2'
+services:
+  ui:
+    image: landoop/kafka-topics-ui:${LENSES_VERSION}
+    ports:
+      - "8000:8000"
+    environment:
+      KAFKA_REST_PROXY_URL: rest-proxy:8082
+      PROXY: "true"
+

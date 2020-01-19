@@ -4,6 +4,20 @@ A sample docker-compose to start a Kafka cluster with 3 brokers
 
 Reference: https://github.com/confluentinc/examples/tree/5.4.0-post/cp-all-in-one-community
 
+## Start
+
+```
+docker-compose up -d
+```
+
+Note: by default this setup uses both `docker-compose.yml`, which contains primary setup for the Kafka cluster and `docker-compose.lenses.yml` which contains a web UI (https://github.com/lensesio/kafka-topics-ui) for Kafka
+
+If you don't want to use Lenses UI, edit `COMPOSE_FILE` variable in `.env` to exclude `docker-compose.lenses.yml` before running `docker-compose up`
+
+Lenses web UI is accessible at http://localhost:8000
+
+## Common operations
+
 ### Create a topic
 
 ```
