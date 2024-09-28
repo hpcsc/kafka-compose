@@ -1,0 +1,33 @@
+organization:
+  name: "conduktor"
+
+database:
+  host: 'postgresql'
+  port: 5432
+  name: 'conduktor-console'
+  username: 'conduktor'
+  password: 'change_me'
+  connection_timeout: 30 # in seconds
+
+admin:
+  email: "admin@local.com"
+  password: "admin"
+
+auth:
+  local-users:
+    - email: user@conduktor.io
+      password: user
+
+monitoring:
+  cortex-url: http://conduktor-monitoring:9009/
+  alert-manager-url: http://conduktor-monitoring:9010/
+  callback-url: http://conduktor-console:8080/monitoring/api/
+  notifications-callback-url: http://localhost:8080
+
+clusters:
+  - id: local
+    name: local
+    bootstrapServers: broker-1:19092,broker-2:29092,broker-3:39092
+    schemaRegistry:
+      url: http://schema-registry:8081
+
