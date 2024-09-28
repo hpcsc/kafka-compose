@@ -1,0 +1,38 @@
+version: '3'
+
+vars:
+  BOOTSTRAP_SERVER: broker-1:19092
+
+tasks:
+  list:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-consumer-groups \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --list
+
+  describe:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-consumer-groups \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --describe \
+          --group {{.CLI_ARGS}}
+
+  delete:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-consumer-groups \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --delete \
+          --group {{.CLI_ARGS}}
+
+  reset-offsets:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-consumer-groups \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --reset-offsets --to-earliest \
+          --topic ${TOPIC:-test-topic} \
+          --group {{.CLI_ARGS}} \
+          --execute

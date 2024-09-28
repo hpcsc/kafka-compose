@@ -1,0 +1,30 @@
+version: '3'
+
+vars:
+  BOOTSTRAP_SERVER: broker-1:19092
+
+tasks:
+  create:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-topics \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --create \
+          --partitions 3 \
+          --replication-factor 2 \
+          --topic {{.CLI_ARGS}}
+
+  list:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-topics \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --list
+
+  describe:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-topics \
+          --bootstrap-server {{.BOOTSTRAP_SERVER}} \
+          --describe \
+          --topic {{.CLI_ARGS}}

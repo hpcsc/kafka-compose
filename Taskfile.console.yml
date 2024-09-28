@@ -1,0 +1,41 @@
+version: '3'
+
+vars:
+  BROKER_LIST: broker-1:19092,broker-2:29092,broker-3:39092
+
+tasks:
+  producer:
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-console-producer \
+          --broker-list {{.BROKER_LIST}} \
+          --property "parse.key=true" \
+          --property "key.separator=:" \
+          --topic {{.CLI_ARGS}}
+
+  consumer:
+    desc: single consumer, no explicit group
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-console-consumer \
+          --bootstrap-server {{.BROKER_LIST}} \
+          --topic {{.CLI_ARGS}} \
+          --from-beginning
+
+  consumer-group-1:
+    desc: consumer belonging to consumer group 1
+    cmds:
+      - task: consumer-for-group
+        vars:
+          TOPIC: "{{.CLI_ARGS}}"
+          GROUP: group-1
+
+  consumer-for-group:
+    internal: true
+    cmds:
+      - |
+        docker-compose exec broker-1 kafka-console-consumer \
+          --bootstrap-server {{.BROKER_LIST}} \
+          --topic {{.TOPIC}} \
+          --group {{.GROUP}} \
+          --from-beginning

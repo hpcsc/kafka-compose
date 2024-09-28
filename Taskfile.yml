@@ -1,0 +1,6 @@
+version: '3'
+
+includes:
+  topic: Taskfile.topic.yml
+  console: Taskfile.console.yml
+  group: Taskfile.group.yml

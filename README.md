@@ -18,46 +18,17 @@ Conduktor web UI is accessible at http://localhost:8080 with username `admin@loc
 
 ## Common operations
 
-### Create a topic
+- Topic
+    - Create: `task topic:create -- {topic-name}`
+    - List: `task topic:list`
+    - Describe: `task topic:describe -- {topic-name}`
 
-```
-docker-compose broker-1 kafka-topics \
-	--bootstrap-server broker-1:19092 \
-	--create \
-	--partitions 3 \
-	--replication-factor 2 \
-	--topic test-topic
-```
+- Console producer/consumer
+    - Start console producer: `task console:producer -- {topic-name}`
+    - Start console consumer: `task console:consumer -- {topic-name}`
 
-### List topics
-
-```
-docker-compose broker-1 kafka-topics \
-	--bootstrap-server broker-1:19092 \
-	--list
-```
-
-### Describe a topic
-
-```
-docker-compose broker-1 kafka-topics \
-	--bootstrap-server broker-1:19092 \
-	--topic test-topic \
-	--describe
-```
-
-### Publish a message using console producer
-
-```
-docker-compose broker-1 kafka-console-producer \
-  --broker-list broker-1:19092,broker-2:29092,broker-3:39092 \
-  --topic test-topic
-```
-
-### Consume messages using console consumer
-
-```
-docker-compose broker-1 kafka-console-consumer \
-  --bootstrap-server broker-1:19092,broker-2:29092,broker-3:39092 \
-  --topic test-topic --from-beginning
-```
+- Consumer group
+    - List: `task group:list`
+    - Describe: `task group:describe -- {group-name}`
+    - Delete: `task group:delete -- {group-name}`
+    - Reset offsets: `task group:reset-offsets -- {group-name}`
