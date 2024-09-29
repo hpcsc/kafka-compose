@@ -27,7 +27,6 @@ monitoring:
 clusters:
   - id: local
     name: local
-    bootstrapServers: broker-1:19092,broker-2:29092,broker-3:39092
+    bootstrapServers: broker-1:19092,broker-2:19093,broker-3:19094
     schemaRegistry:
       url: http://schema-registry:8081
-
